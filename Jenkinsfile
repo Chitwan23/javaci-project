@@ -4,25 +4,25 @@ pipeline {
     stages {
         stage('GIT Checkout'){
             steps{
-                git branch: 'main', url: 'https://github.com/ArnimTaliyan/javaci-project.git'
+               git branch: 'main', url: 'https://github.com/Chitwan23/javaci-project.git'
             }
         }
 
         stage('UNIT TESTING') {
             steps {
-                sh 'mvn test'
+                bat 'mvn test'
             }
         }
 
         stage('INTEGRATION TESTING') {
             steps {
-                sh 'mvn verify -DskipUnitTests'
+                bat 'mvn verify -DskipUnitTests'
             }
         }
 
         stage('BUILD') {
             steps {
-                sh 'mvn clean install'
+                bat 'mvn clean install'
             }
         }
 
@@ -30,7 +30,7 @@ pipeline {
             steps {
                 script {
                     withSonarQubeEnv(credentialsId: 'sonarqubetoken') {
-                        sh 'mvn clean package sonar:sonar'
+                        bat 'mvn clean package sonar:sonar'
                     }
                 }
             }
